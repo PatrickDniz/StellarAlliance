@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const baseURL = 'http://localhost:3000/naves';
+const baseURL = 'http://localhost:8000/naves';
 
 export const cadastrarNave = async (nave) => {
   try {
@@ -14,7 +14,7 @@ export const cadastrarNave = async (nave) => {
 export const listarNaves = async () => {
   try {
     const response = await axios.get(baseURL);
-    console.log('Lista de Naves:', response.data);
+    return response.data;
   } catch (error) {
     console.error('Erro ao listar as naves:', error.response ? error.response.data : error.message);
   }

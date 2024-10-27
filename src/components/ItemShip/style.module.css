@@ -12,10 +12,10 @@
 .title {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
   gap: 16px;
 }
 .title h3 {
+  margin-right: auto;
   color: var(--primary);
 }
 .title div {
@@ -26,6 +26,13 @@
   padding: 8px;
   border-radius: 4px;
   font-weight: 700;
+}
+.remove {
+  cursor: pointer;
+  transition: 333ms all ease-in-out;
+}
+.remove svg {
+  pointer-events: none;
 }
 .item {
   display: flex;
@@ -42,20 +49,26 @@
   color: var(--sup_5);
 }
 .perfeito {
-  background-color: gold;
+  background-color: var(--primary);
 }
 .excelente {
-  background-color: green;
+  background-color: var(--secondary);
 }
 .bom {
   background-color: blue;
 }
 .medio {
-  background-color: orange;
+  background-color: var(--attention);
 }
 .baixo {
-  background-color: red;
+  background-color: crimson;
 }
 .inviavel {
-  background-color: grey;
+  background-color:  var(--error);
+}
+
+@media (hover: hover) {
+  .remove:hover {
+    color: var(--error);
+  }
 }

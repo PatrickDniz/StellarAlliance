@@ -15,10 +15,6 @@
   cursor: pointer;
   transition: 333ms all ease-in-out;
 }
-.prev:hover:not(.swiper-button-disabled),
-.next:hover:not(.swiper-button-disabled) {
-  color: var(--primary);
-}
 .prev {
   left: -20px;
 }
@@ -62,5 +58,11 @@
 @media (max-width: 400px) {
   .titleBar h2 {
     font-size: 32px;
+  }
+}
+@media (hover:hover) {
+  .prev:hover:not(.swiper-button-disabled),
+  .next:hover:not(.swiper-button-disabled) {
+    color: var(--primary);
   }
 }

@@ -2,8 +2,12 @@
 import { cadastrarNave, listarNaves } from "@/api/client";
 import styles from "./style.module.css";
 import React, { useState } from "react";
+import clsx from "clsx";
 
 export default function FormularioInventario() {
+  const [popupMessage, setPopupMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+
   const [formData, setFormData] = useState({
     nomeDaNave: "",
     tamanho: "",
@@ -39,8 +43,38 @@ export default function FormularioInventario() {
     }
   };
 
+  const handlePopupShow = (message) => {
+    setPopupMessage(message);
+    setShowPopup(true);
+
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 2500);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const validateFields = () => {
+      return (
+        formData.nomeDaNave &&
+        formData.tamanho &&
+        formData.cor &&
+        formData.localDeQueda &&
+        formData.periculosidadeLocalDeQueda &&
+        formData.armamentos.length > 0 &&
+        formData.tipoDeCombustivel.length > 0 &&
+        formData.numeroDeTripulantes &&
+        formData.estadoDosTripulantes &&
+        formData.grauDeAvaria &&
+        formData.potencialTecnologico &&
+        formData.grauDePericulosidade
+      );
+    };
+
+    if (!validateFields()) {
+      return handlePopupShow("Preencher todos os dados para cadastrar a nave.");
+    }
 
     const pesos = {
       tamanho: { pequena: 10, media: 30, grande: 50, colossal: 80 },
@@ -114,215 +148,227 @@ export default function FormularioInventario() {
       ["classificacao"]: classificacao,
     };
 
-    console.log("Dados cadastrados:", envio);
     (async () => {
       await cadastrarNave(envio);
-    
+
       await listarNaves();
     })();
-    
+
+    handlePopupShow("Nave cadastrada com sucesso!");
   };
 
   return (
-    <form className={styles.formulario} onSubmit={handleSubmit}>
-      <h2>Cadastro de Inventário Estelar</h2>
-
-      <div>
-        <label>Nome da nave:</label>
-        <input
-          type="text"
-          name="NomeDaNave"
-          value={formData.NomeDaNave}
-          onChange={handleChange}
-        />
+    <>
+      <div
+        className={clsx(styles.popup, {
+          [styles.active]: showPopup,
+        })}
+      >
+        <div>
+          {popupMessage}
+        </div>
       </div>
 
-      <div>
-        <label>Tamanho:</label>
-        {["pequena", "media", "grande", "colossal"].map((size) => (
-          <label key={size}>
-            <input
-              type="radio"
-              name="tamanho"
-              value={size}
-              checked={formData.tamanho === size}
-              onChange={handleToggleChange}
-            />
-            {size.charAt(0).toUpperCase() + size.slice(1)}
-          </label>
-        ))}
-      </div>
+      <form className={styles.formulario} onSubmit={handleSubmit}>
+        <h2>Cadastro de Inventário Estelar</h2>
 
-      <div>
-        <label>Cor:</label>
-        {[
-          "vermelha",
-          "laranja",
-          "amarela",
-          "verde",
-          "azul",
-          "anil",
-          "violeta",
-        ].map((color) => (
-          <label key={color}>
-            <input
-              type="radio"
-              name="cor"
-              value={color}
-              checked={formData.cor === color}
-              onChange={handleToggleChange}
-            />
-            {color.charAt(0).toUpperCase() + color.slice(1)}
-          </label>
-        ))}
-      </div>
+        <div>
+          <label>Nome da nave:</label>
+          <input
+            type="text"
+            name="nomeDaNave"
+            value={formData.nomeDaNave}
+            onChange={handleChange}
+          />
+        </div>
 
-      <div>
-        <label>Local de Queda:</label>
-        <input
-          type="text"
-          name="localDeQueda"
-          value={formData.localDeQueda}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label>Periculosidade do Local da Queda:</label>
-        {["seguro", "moderado", "perigoso", "extremamente perigoso"].map(
-          (option) => (
-            <label key={option}>
+        <div>
+          <label>Tamanho:</label>
+          {["pequena", "media", "grande", "colossal"].map((size) => (
+            <label key={size}>
               <input
                 type="radio"
-                name="periculosidadeLocalDeQueda"
-                value={option}
-                checked={formData.periculosidadeLocalDeQueda === option}
+                name="tamanho"
+                value={size}
+                checked={formData.tamanho === size}
                 onChange={handleToggleChange}
               />
-              {option.charAt(0).toUpperCase() + option.slice(1)}
+              {size.charAt(0).toUpperCase() + size.slice(1)}
             </label>
-          )
-        )}
-      </div>
+          ))}
+        </div>
 
-      <div>
-        <label>Armamentos:</label>
-        {[
-          "nenhum",
-          "canhões de plasma",
-          "lasers de alta potência",
-          "mísseis teleguiados",
-          "defesa anti-matéria",
-        ].map((weapon) => (
-          <label key={weapon}>
-            <input
-              type="checkbox"
-              name="armamentos"
-              value={weapon}
-              checked={formData.armamentos.includes(weapon)}
-              onChange={handleToggleChange}
-            />
-            {weapon.charAt(0).toUpperCase() + weapon.slice(1)}
-          </label>
-        ))}
-      </div>
+        <div>
+          <label>Cor:</label>
+          {[
+            "vermelha",
+            "laranja",
+            "amarela",
+            "verde",
+            "azul",
+            "anil",
+            "violeta",
+          ].map((color) => (
+            <label key={color}>
+              <input
+                type="radio"
+                name="cor"
+                value={color}
+                checked={formData.cor === color}
+                onChange={handleToggleChange}
+              />
+              {color.charAt(0).toUpperCase() + color.slice(1)}
+            </label>
+          ))}
+        </div>
 
-      <div>
-        <label>Tipo de Combustível:</label>
-        {[
-          "antimatéria",
-          "bioenergia",
-          "energia escura",
-          "cristais energéticos",
-          "matéria escura",
-        ].map((fuel) => (
-          <label key={fuel}>
-            <input
-              type="checkbox"
-              name="tipoDeCombustivel"
-              value={fuel}
-              checked={formData.tipoDeCombustivel.includes(fuel)}
-              onChange={handleToggleChange}
-            />
-            {fuel.charAt(0).toUpperCase() + fuel.slice(1)}
-          </label>
-        ))}
-      </div>
+        <div>
+          <label>Local de Queda:</label>
+          <input
+            type="text"
+            name="localDeQueda"
+            value={formData.localDeQueda}
+            onChange={handleChange}
+          />
+        </div>
 
-      <div>
-        <label>Número de Tripulantes:</label>
-        <input
-          type="number"
-          name="numeroDeTripulantes"
-          value={formData.numeroDeTripulantes}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>Estado dos Tripulantes:</label>
-        <input
-          type="text"
-          name="estadoDosTripulantes"
-          value={formData.estadoDosTripulantes}
-          onChange={handleChange}
-        />
-      </div>
+        <div>
+          <label>Periculosidade do Local da Queda:</label>
+          {["seguro", "moderado", "perigoso", "extremamente perigoso"].map(
+            (option) => (
+              <label key={option}>
+                <input
+                  type="radio"
+                  name="periculosidadeLocalDeQueda"
+                  value={option}
+                  checked={formData.periculosidadeLocalDeQueda === option}
+                  onChange={handleToggleChange}
+                />
+                {option.charAt(0).toUpperCase() + option.slice(1)}
+              </label>
+            )
+          )}
+        </div>
 
-      <div>
-        <label>Grau de Avaria:</label>
-        {[
-          "perda total",
-          "muito destruída",
-          "parcialmente destruída",
-          "praticamente intacta",
-          "sem avarias",
-        ].map((damage) => (
-          <label key={damage}>
-            <input
-              type="radio"
-              name="grauDeAvaria"
-              value={damage}
-              checked={formData.grauDeAvaria === damage}
-              onChange={handleToggleChange}
-            />
-            {damage.charAt(0).toUpperCase() + damage.slice(1)}
-          </label>
-        ))}
-      </div>
+        <div>
+          <label>Armamentos:</label>
+          {[
+            "nenhum",
+            "canhões de plasma",
+            "lasers de alta potência",
+            "mísseis teleguiados",
+            "defesa anti-matéria",
+          ].map((weapon) => (
+            <label key={weapon}>
+              <input
+                type="checkbox"
+                name="armamentos"
+                value={weapon}
+                checked={formData.armamentos.includes(weapon)}
+                onChange={handleToggleChange}
+              />
+              {weapon.charAt(0).toUpperCase() + weapon.slice(1)}
+            </label>
+          ))}
+        </div>
 
-      <div>
-        <label>Potencial de Prospecção Tecnológica:</label>
-        {["baixo", "médio", "alto", "altíssimo"].map((potential) => (
-          <label key={potential}>
-            <input
-              type="radio"
-              name="potencialTecnologico"
-              value={potential}
-              checked={formData.potencialTecnologico === potential}
-              onChange={handleToggleChange}
-            />
-            {potential.charAt(0).toUpperCase() + potential.slice(1)}
-          </label>
-        ))}
-      </div>
+        <div>
+          <label>Tipo de Combustível:</label>
+          {[
+            "antimatéria",
+            "bioenergia",
+            "energia escura",
+            "cristais energéticos",
+            "matéria escura",
+          ].map((fuel) => (
+            <label key={fuel}>
+              <input
+                type="checkbox"
+                name="tipoDeCombustivel"
+                value={fuel}
+                checked={formData.tipoDeCombustivel.includes(fuel)}
+                onChange={handleToggleChange}
+              />
+              {fuel.charAt(0).toUpperCase() + fuel.slice(1)}
+            </label>
+          ))}
+        </div>
 
-      <div>
-        <label>Grau de Periculosidade:</label>
-        {["baixo", "médio", "alto", "extremo"].map((risk) => (
-          <label key={risk}>
-            <input
-              type="radio"
-              name="grauDePericulosidade"
-              value={risk}
-              checked={formData.grauDePericulosidade === risk}
-              onChange={handleToggleChange}
-            />
-            {risk.charAt(0).toUpperCase() + risk.slice(1)}
-          </label>
-        ))}
-      </div>
+        <div>
+          <label>Número de Tripulantes:</label>
+          <input
+            type="number"
+            name="numeroDeTripulantes"
+            value={formData.numeroDeTripulantes}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Estado dos Tripulantes:</label>
+          <input
+            type="text"
+            name="estadoDosTripulantes"
+            value={formData.estadoDosTripulantes}
+            onChange={handleChange}
+          />
+        </div>
 
-      <button type="submit">Cadastrar Nave</button>
-    </form>
+        <div>
+          <label>Grau de Avaria:</label>
+          {[
+            "perda total",
+            "muito destruída",
+            "parcialmente destruída",
+            "praticamente intacta",
+            "sem avarias",
+          ].map((damage) => (
+            <label key={damage}>
+              <input
+                type="radio"
+                name="grauDeAvaria"
+                value={damage}
+                checked={formData.grauDeAvaria === damage}
+                onChange={handleToggleChange}
+              />
+              {damage.charAt(0).toUpperCase() + damage.slice(1)}
+            </label>
+          ))}
+        </div>
+
+        <div>
+          <label>Potencial de Prospecção Tecnológica:</label>
+          {["baixo", "médio", "alto", "altíssimo"].map((potential) => (
+            <label key={potential}>
+              <input
+                type="radio"
+                name="potencialTecnologico"
+                value={potential}
+                checked={formData.potencialTecnologico === potential}
+                onChange={handleToggleChange}
+              />
+              {potential.charAt(0).toUpperCase() + potential.slice(1)}
+            </label>
+          ))}
+        </div>
+
+        <div>
+          <label>Grau de Periculosidade:</label>
+          {["baixo", "médio", "alto", "extremo"].map((risk) => (
+            <label key={risk}>
+              <input
+                type="radio"
+                name="grauDePericulosidade"
+                value={risk}
+                checked={formData.grauDePericulosidade === risk}
+                onChange={handleToggleChange}
+              />
+              {risk.charAt(0).toUpperCase() + risk.slice(1)}
+            </label>
+          ))}
+        </div>
+
+        <button type="submit">Cadastrar Nave</button>
+      </form>
+    </>
   );
 }

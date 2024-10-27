@@ -67,3 +67,47 @@
 .formulario button:active {
   transform: scale(0.96);
 }
+.popup {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 333ms all ease-in-out;
+  z-index: 999;
+}
+.popup:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  transition: 500ms all;
+  backdrop-filter: blur(3px);
+  z-index: -1;
+}
+
+.popup div {
+  max-width: calc(100% - 40px);
+  width: 400px;
+  min-height: 200px; 
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sup_9);
+  color: var(--primary);
+  border: 1px solid var(--secondary);
+  border-radius: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+.popup.active{
+  opacity: 1;
+  visibility: visible;
+}

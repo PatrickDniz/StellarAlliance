@@ -1,7 +1,11 @@
+"use client"
+
+import { FaTrash } from "react-icons/fa";
 import clsx from "clsx";
 import styles from "./style.module.css";
 
-export default function ItemShip({ data }) {
+export default function ItemShip({ data, onRemove }) {
+  console.log(data)
   const {
     id,
     nomeDaNave,
@@ -20,6 +24,10 @@ export default function ItemShip({ data }) {
     percentualDeUtilidade,
     classificacao,
   } = data;
+
+  const handleRemove = () => {
+    onRemove(id);
+  };
 
   const getClassificacaoClass = (classificacao) => {
     switch (classificacao) {
@@ -43,8 +51,9 @@ export default function ItemShip({ data }) {
   return (
     <li key={id} className={styles.wrapper}>
       <div className={styles.title}>
-        <h3>{nomeDaNave}</h3>
+        <h3>{nomeDaNave}</h3> 
         <div className={clsx(`${getClassificacaoClass(classificacao)}`)}>{percentualDeUtilidade}%</div>
+        <div className={styles.remove} onClick={handleRemove}>  <FaTrash fontSize={16} /></div>
       </div>
       <div className={styles.item}>
         <div className={styles.itemTitle}>Informações da Nave</div>
