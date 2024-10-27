@@ -1,0 +1,12 @@
+.section {
+  width: 1980px;
+  max-width: calc(100% - 20px);
+  margin: 24px auto;
+}
+.list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}

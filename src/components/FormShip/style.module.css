@@ -1,0 +1,113 @@
+.formulario {
+  display: flex;
+  flex-direction: column;
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: var(--sup_9);
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.formulario h2 {
+  text-align: center;
+  color: var(--primary);
+}
+.formulario div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 16px;
+  align-items: center;
+  margin-block: 16px;
+}
+.formulario div label:first-child{ 
+  width: 100%;
+  margin-bottom: 8px;
+  color: var(--primary);
+}
+.formulario label {
+  display: flex;
+  gap: 8px;
+  color: var(--quinary);
+}
+.formulario input[type="text"] {
+  width: 100%;
+}
+.formulario input {
+  padding: 1em;
+  font-size: 1em;
+  border: 1px solid var(--secondary);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.formulario input:focus {
+  outline: 1px solid var(--primary);
+}
+.formulario button {
+  background-color: var(--primary);
+  color: var(--sup_10);
+  border: none;
+  border-radius: 48px;
+  cursor: pointer;
+  margin: 24px auto 0 auto;
+  display: block;
+  width: 178px;
+  height: 44px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 333ms all ease-in-out;
+}
+
+.formulario button:hover {
+  background-color: var(--secondary);
+  mix-blend-mode: lighten;
+}
+
+.formulario button:active {
+  transform: scale(0.96);
+}
+.popup {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 333ms all ease-in-out;
+  z-index: 999;
+}
+.popup:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  transition: 500ms all;
+  backdrop-filter: blur(3px);
+  z-index: -1;
+}
+
+.popup div {
+  max-width: calc(100% - 40px);
+  width: 400px;
+  min-height: 200px; 
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sup_9);
+  color: var(--primary);
+  border: 1px solid var(--secondary);
+  border-radius: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+.popup.active{
+  opacity: 1;
+  visibility: visible;
+}

@@ -1,0 +1,74 @@
+.wrapper {
+  width: 430px;
+  max-width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 8px;
+  background: var(--sup_9);
+  place-self: stretch;
+}
+.title {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.title h3 {
+  margin-right: auto;
+  color: var(--primary);
+}
+.title div {
+  display: flex;
+  justify-content: center;
+  width: 80px;
+  color: var(--quinary);
+  padding: 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.remove {
+  cursor: pointer;
+  transition: 333ms all ease-in-out;
+}
+.remove svg {
+  pointer-events: none;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--quinary);
+}
+.itemTitle {
+  color: var(--sup_5);
+  font-weight: 700;
+  font-size: 18px;
+}
+.item span {
+  color: var(--sup_5);
+}
+.perfeito {
+  background-color: var(--primary);
+}
+.excelente {
+  background-color: var(--secondary);
+}
+.bom {
+  background-color: blue;
+}
+.medio {
+  background-color: var(--attention);
+}
+.baixo {
+  background-color: crimson;
+}
+.inviavel {
+  background-color:  var(--error);
+}
+
+@media (hover: hover) {
+  .remove:hover {
+    color: var(--error);
+  }
+}
