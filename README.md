@@ -1,6 +1,6 @@
 # StellarAlliance - README
 
-## Configuração do repositorio\
+## Configuração do repositorio
 
 #### Frontend - Next.js
 - node version v21.6.0
