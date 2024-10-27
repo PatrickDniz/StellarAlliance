@@ -40,7 +40,8 @@ sem avarias
 Potencial de prospecção tecnológica: avalia o valor científico e tecnológico que uma nave alienígena pode oferecer.
 Grau de periculosidade: determina o risco envolvido em se aproximar e interagir com a nave.
 Outros atributos: sinta-se à vontade para adicionar atributos que considerar importantes.
-Diretório para cadastro de naves: naves/cadastro
+
+#### Diretório para cadastro de naves: naves/cadastro
 
 ### 2ª Missão - Missão Etiqueta Galáctica
 Após catalogar as informações das naves, precisamos desenvolver um algoritmo que classifique cada nave com base em sua utilidade futura. As classificações possíveis incluem:
@@ -52,7 +53,7 @@ Ameaça em Potencial: possui elementos perigosos, como armadilhas ou sistemas au
 Fonte de Energia Alternativa: tecnologias de propulsão ou sistemas de energia únicos.
 Sugerir novas classificações também é incentivado, pois a criatividade é fundamental para maximizar o valor das naves.
 
-Diretório para lista de naves: naves/lista
+#### Diretório para lista de naves: naves/lista
 
 ### 3ª Missão - Operação Visão de Captura
 Após o contato com os alienígenas, descobrimos que eles se assemelham à espécie Anas platyrhynchos (patos). Os “Patos Galácticos” têm características peculiares, como coloração esverdeada e bicos menores, e podem se camuflar em nosso ambiente.
@@ -63,7 +64,8 @@ Monitorar os movimentos e comportamentos dos patos.
 Analisar características para identificar se é um pato terrestre ou um Xenófago.
 Se for um Xenófago, exibir a melhor estratégia de captura, levando em conta o ambiente e o tamanho do bando.
 Sugerir a arma mais eficaz para a captura.
-Diretório para a Patopedia: patopedia
+
+#### Diretório para a Patopedia: patopedia
 
 ## Conclusão
 O StellarAlliance representa uma oportunidade sem precedentes para a exploração e a recuperação de tecnologia alienígena. Cada missão traz seus próprios desafios, e a colaboração entre as equipes será essencial para garantir o sucesso de nossas operações. Prepare-se para a aventura e que a exploração comece!
